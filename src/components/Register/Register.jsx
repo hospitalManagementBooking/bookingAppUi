@@ -1,6 +1,7 @@
-import API from '../../api';
+/* eslint-disable no-unused-vars */
+import API from '../../API/api';
 import React, { useState } from 'react';
-import Snackbar from '../Snackbar/Snackbar';
+import Snackbar from '../../Snackbar/Snackbar';
 import './Register.css';
 
 const Register = () => {
@@ -40,7 +41,7 @@ const Register = () => {
                 formData.append('image', profileImage);
             }
 
-            API.post('/base/adduser', formData, {
+            API.post('base/adduser', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -65,7 +66,7 @@ const Register = () => {
     function sendOtp() {
         const to = payload.email;
 
-        API.post(`/mail/sendotp`, { to })
+        API.post(`mail/sendotp`, { to })
             .then((res) => {
                 setMessage(res.data.message);
             }).catch((error) => {
@@ -92,7 +93,7 @@ const Register = () => {
             otp: otpValue,
         };
 
-        API.post(`/mail/verifyotp`, data)
+        API.post(`mail/verifyotp`, data)
             .then((res) => {
                 setResOtpStatus(res.status);
                 setMessage(res.data.message);
@@ -110,7 +111,7 @@ const Register = () => {
 
     return (
         <>
-            <div className="container">
+            <div className="container mt-5">
                 <div className="row justify-content-center">
                     <div className="col-4">
                         <div className="text-center">
