@@ -1,8 +1,12 @@
 /* eslint-disable no-unused-vars */
 import API from '../../API/api';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Snackbar from '../../Snackbar/Snackbar';
 import './Register.css';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUsers, addUser, removeUser } from '../../Slice/GetAllUserSlice';
+
 
 const Register = () => {
     const [payload, setPayload] = useState({ email: '', name: '', age: '', address: '' });
@@ -13,6 +17,17 @@ const Register = () => {
     const [otpValue, setOtpValue] = useState('');
     const [resOtp, setResOtpStatus] = useState(0);
     const [message, setMessage] = useState('');
+
+
+    const dispatch = useDispatch();
+    const { users, loading, error } = useSelector((state) => state.GetAllUser);
+
+    useEffect(() => {
+        dispatch(fetchUsers());
+    }, [dispatch]);
+
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error}</div>;
 
     function handleOnChange(e) {
         const name = e.target.name;
@@ -209,6 +224,16 @@ const Register = () => {
                     </div>
                 </div>
             </div>
+
+
+            <div>
+            <h1>User List</h1>
+            <ul>
+                {users.map(user => (
+                    <><li key={user.id}>{user.name}</li><img src={user.image} alt="" height={100} width={100} /></>
+                ))}
+            </ul>
+        </div>
         </>
     );
 }
