@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
 
+import { Provider } from 'react-redux'
 import './App.css'
-import Home from './components/Home/Home'
 import Register from './components/Register/Register'
+import store from './Store/Store'
 
 function App() {
  
@@ -10,7 +11,10 @@ function App() {
   return (
     <>
 
+<Provider store={store}>
     <Register/>
+
+    </Provider>
      
     </>
   )
