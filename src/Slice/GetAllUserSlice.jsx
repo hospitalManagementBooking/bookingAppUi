@@ -11,7 +11,7 @@ const initialState = {
 
 
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
-    const response = await api.get('base/getAll'); 
+    const response = await api.get('hospital/getAllHospitals'); 
     return response.data; 
 });
 
